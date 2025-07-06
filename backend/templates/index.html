@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="glass-card">
+            <h1 class="typing">🔬 Predict Your Diabetes Risk</h1>
+            <form action="/predict" method="POST" class="form">
+                <div class="input-box">
+                    <i class="fas fa-baby"></i>
+                    <input type="number" name="pregnancies" placeholder="Pregnancies" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-vial"></i>
+                    <input type="number" name="glucose" placeholder="Glucose" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-heartbeat"></i>
+                    <input type="number" name="bloodpressure" placeholder="Blood Pressure" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-syringe"></i>
+                    <input type="number" name="insulin" placeholder="Insulin Level" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-weight"></i>
+                    <input type="number" name="bmi" placeholder="BMI" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="number" name="age" placeholder="Age" required>
+                </div>
+                <button type="submit" class="glow-button">Predict Now</button>
+            </form>
+            <div class="links">
+                <a href="/login">🔐 Login</a> |
+                <a href="/regsiter">🆕 Regsiter</a>
+            </div>
+            {% if prediction%}
+                <div class="result-box">
+                    <h2>{{ prediction }}</h2>
+                    <p>Confidence: {{ confidence}}%</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="loader" class="loader-container" style="display: none;">
+        <div class="spinner"></div>
+        <p>Predicting...</p>
+    </div>
+    <script>
+        const form = document.querySelector('form');
+        const loader = document.getElementById('loader');
+        form.addEventListener('submit',()=>{
+            loader.style.display = 'flex'
+        });    
+    </script>
+    
+<script src="{{url_for('static',filename='script.js')}}"></script>
+</body>
+</html>
